@@ -25,6 +25,9 @@ String host = getEnv('DB_HOST', 'db');
 /// The port to connect to the database on.
 int port = int.parse(getEnv('DB_PORT', '5432'));
 
+// Use SSL
+bool useSSL = getEnv('DB_SSL', 'false') == 'true';
+
 class DatabaseService {
   /// The connection to the database.
   late PostgreSQLConnection _connection;
@@ -50,6 +53,7 @@ class DatabaseService {
       databaseName,
       username: user,
       password: password,
+      useSSL: useSSL,
     );
 
     await _connection.open();
